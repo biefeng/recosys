@@ -1,0 +1,15 @@
+Generic single-database configuration.
+
+dashboard:
+    1.visitors in the months (numeric)
+    2.conversion percentage (percentage)
+
+        conversion=A/B
+        A:Number of goal achievements
+        B:Number of visits
+
+    3.items sold this month (numeric)
+    4.sessions this month (numeric)
+    5.sessions with a buy or without  (bar graphics)
+    6.rating distribution
+
