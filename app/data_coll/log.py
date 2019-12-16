@@ -5,7 +5,7 @@
 
 
 from flask import (Blueprint, request)
-from app.data_coll.shard import db, BaseModel
+from app.shard import db, BaseModel
 
 log = Blueprint("event", __name__, url_prefix="/event")
 
@@ -17,5 +17,6 @@ class Event(BaseModel):
 @log.route("/put", methods=["GET"])
 def save_content():
     data = request.get_json()
+
     print(data)
     return {'name': 'BieFeNg'}

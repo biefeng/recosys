@@ -5,7 +5,7 @@ from app.config import MYSQL as DATABASE
 
 from app.data_coll.content import content
 from app.data_coll.event import event
-from app.data_coll.shard import db
+from app.shard import db
 from app.data_coll.user import user
 
 bps = [

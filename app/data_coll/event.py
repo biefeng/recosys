@@ -5,7 +5,7 @@
 
 
 from flask import (Blueprint, request)
-from app.data_coll.shard import db, BaseModel
+from app.shard import db, BaseModel
 
 event = Blueprint("event", __name__, url_prefix="/event")
 
