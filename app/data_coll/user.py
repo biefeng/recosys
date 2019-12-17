@@ -3,14 +3,12 @@
 # date_time 2019/12/13 10:28
 # file_name : user.py
 
+import logging
+
 from flask import (Blueprint, request)
 
-from app.shard import db, BaseModel
 from app.builder.association_rule import AssociationRule
-
-import app.builder.association_rule as association_rule
-
-import logging
+from app.shard import db, BaseModel
 
 logger = logging.getLogger(__name__)
 

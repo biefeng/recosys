@@ -6,6 +6,6 @@
 
 from flask_migrate import Migrate
 from flask import current_app as app
-from app.data_coll.shard import db
+from app.shard import db
 
 migrate = Migrate(app, db)

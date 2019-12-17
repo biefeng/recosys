@@ -3,8 +3,9 @@
 # date_time 2019/12/13 11:19
 # file_name : shard.py
 
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 

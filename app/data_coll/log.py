@@ -5,6 +5,7 @@
 
 
 from flask import (Blueprint, request)
+
 from app.shard import db, BaseModel
 
 log = Blueprint("event", __name__, url_prefix="/event")

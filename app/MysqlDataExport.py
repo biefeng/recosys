@@ -160,7 +160,7 @@ class Export:
     def get_data(self, **kwargs):
         cursor = self.get_cursor(**kwargs)
         # sql = "select * from " + kwargs['table'] + ' limit ' + str(kwargs['startIndex']) + "," + str(kwargs['endIndex'])
-        sql = ' select * from (' + kwargs['sql'] + ')tmp limit ' + str(
+        sql = 'select * from (' + kwargs['sql'] + ')tmp limit ' + str(
             kwargs['startIndex']) + "," + str(kwargs['endIndex'])
         cursor.execute(sql)
         return cursor.fetchall()
