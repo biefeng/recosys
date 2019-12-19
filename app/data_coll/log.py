@@ -8,16 +8,18 @@ from flask import (Blueprint, request)
 
 from app.shard import db, BaseModel
 
-log = Blueprint("event", __name__, url_prefix="/event")
+log = Blueprint("log", __name__, url_prefix="/log")
 
 
-class Event(BaseModel):
-    eventName = db.Column(db.String(128), nullable=False, comment="事件名称")
+class Log(BaseModel):
+    eventId = db.Column("event_id", db.String(128), nullable=False, comment="事件名称")
 
 
 @log.route("/put", methods=["GET"])
 def save_content():
-    data = request.get_json()
+    try:
+        data = request.get_json()
 
-    print(data)
-    return {'name': 'BieFeNg'}
+        print(data)
+    except Exception as e:
+        return {"status": "failed"}

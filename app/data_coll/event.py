@@ -14,8 +14,12 @@ class Event(BaseModel):
     eventName = db.Column(db.String(128), nullable=False, comment="事件名称")
 
 
-@event.route("/put", methods=["GET"])
+@event.route("/add", methods=["POST"])
 def save_content():
     data = request.get_json()
-    print(data)
+    if data is not None:
+        add = Event()
+        add.eventName = data['eventName']
+        db.session.add(add)
+        db.session.commit()
     return {'name': 'BieFeNg'}
