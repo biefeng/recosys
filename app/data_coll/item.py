@@ -17,6 +17,7 @@ item = Blueprint("item", __name__, url_prefix="/item")
 
 # Model
 class Item(BaseModel):
+    """内容/物品"""
     itemName = db.Column("item_name", db.String(128), comment="内容名称")
     itemCode = db.column("item_code", db.String(64), comment="内容编码")
 

@@ -17,6 +17,7 @@ user = Blueprint("user", __name__, url_prefix="/user")
 
 # Model
 class User(BaseModel):
+    """用户"""
     userName = db.Column("user_name", db.String(128), comment="用户名")
 
     def __init__(self, user_name):
