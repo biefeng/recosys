@@ -9,6 +9,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
 
 class BaseModel(db.Model):
     __abstract__ = True  # 定义为基类
@@ -22,3 +24,8 @@ class BaseModel(db.Model):
         for key, value in table.columns.items():
             if value.default:
                 setattr(self, key, value.default.arg)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

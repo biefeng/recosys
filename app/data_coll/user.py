@@ -35,16 +35,3 @@ def save_content():
         return {"status": "ok"}
     except Exception as e:
         return {"status": "failed", "message": str(e)}
-
-
-@user.route("/ass", methods=['GET'])
-def ass():
-    # try:
-    association_rule = AssociationRule()
-    transactions = association_rule.generate_transaction()
-    rules = association_rule.calculate_support_confidence(transactions, 0.01)
-    return {"status": "success", "rules": rules}
-    # except Exception as E:
-    #     print(E)
-    #     print("异常")
-    #     return {"status": "failed"}
