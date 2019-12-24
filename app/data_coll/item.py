@@ -8,6 +8,7 @@ import logging
 
 from flask import (Blueprint, request)
 
+from app.builder.association_rule import AssociationRule
 from app.shard import db, BaseModel
 
 logger = logging.getLogger(__name__)
@@ -35,3 +36,11 @@ def save_content():
         return {"status": "ok"}
     except Exception as e:
         return {"status": "failed", "message": str(e)}
+
+
+@item.route("/ass", methods=['GET'])
+def ass():
+    association_rule = AssociationRule()
+    transactions = association_rule.generate_transaction()
+    rules = association_rule.calculate_support_confidence(transactions, 0.01)
+    return {"status": "success", "rules": rules}
