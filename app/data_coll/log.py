@@ -6,9 +6,7 @@
 
 from flask import (Blueprint, request)
 
-from app.shard import db, BaseModel, allowed_file
-
-import csv
+from app.shard import db, BaseModel
 
 log = Blueprint("log", __name__, url_prefix="/log")
 
@@ -24,18 +22,7 @@ class Log(BaseModel):
 def save_content():
     try:
         data = request.get_json()
+
         print(data)
     except Exception as e:
         return {"status": "failed"}
-
-
-@log.route("/import", methods=['GET'])
-def import_data():
-    result = dict()
-    """导入历史数据"""
-    if 'data' not in request.files:
-        result.status = 'false'
-        result.errMsg = '未上传文件'
-    file = request.files['data']
-    if file.filename=='':
-
