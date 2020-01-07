@@ -250,8 +250,9 @@ class EventExport(Export):
 
 
 if "__main__" == __name__:
-    e = Export()
-    prop = PROD
-    prop['sql'] = "select * from catering_task order by order_time"
-    prop['tableName'] = "catering_task"
-    e.export_to_inserts(**prop)
+	e = Export()
+	e.export()
+# prop = PROD
+# prop['sql'] = "select * from catering_task order by order_time"
+# prop['tableName'] = "catering_task"
+# e.export_to_inserts(**prop)
