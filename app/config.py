@@ -4,7 +4,7 @@
 # file_name : config.py
 
 MYSQL = {
-    'SQLALCHEMY_DATABASE_URI': 'mysql+pymysql://root:Biefeng123!@192.168.186.135/recosys',
+    'SQLALCHEMY_DATABASE_URI': 'mysql+pymysql://root:Biefeng123!@192.168.186.137/recosys',
     'SQLALCHEMY_POOL_SIZE': 10,
     'SQLALCHEMY_POOL_RECYCLE': 3600,
     'SQLALCHEMY_TRACK_MODIFICATIONS': False,

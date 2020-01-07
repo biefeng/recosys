@@ -23,6 +23,8 @@ class Item(BaseModel):
     itemCode = db.column("item_code", db.String(64), comment="内容编码")
 
 
+
+
 # Router
 @item.route("/put", methods=["POST"])
 def save_content():
