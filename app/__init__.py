@@ -6,11 +6,11 @@ from app.data_coll.content import content
 from app.data_coll.event import event
 from app.data_coll.user import user
 from app.data_coll.log import log
-
+from app.data_coll.ratings import ratings
 from app.shard import db
 
 bps = [
-    content, event, user, log
+    content, event, user, log,ratings
 ]
 
 

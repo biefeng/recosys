@@ -71,7 +71,6 @@ class Export:
                             insert_sql = insert_sql + column_name + ","
                         init = True
                         insert_sql = insert_sql[:len(insert_sql) - 1] + ") values ("
-                        print(insert_sql)
                     temp = insert_sql
                     for (key, value) in data.items():
 
@@ -80,7 +79,6 @@ class Export:
                         else:
                             temp = temp + "'" + str(value) + "'" + ","
                     temp = temp[:len(temp) - 1] + ");\r\n"
-                    # print(temp)
                     insert_cursor.execute(temp)
                     insert_connection.commit()
                     try:
@@ -192,9 +190,59 @@ class Export:
         self.export_to_csv(**profiles[props['profiles']])
 
 
+class EventExport(Export):
+    def export_to_inserts(self, **kwargs):
+        prop = {'host': '192.168.186.135', 'user': 'root', 'password': 'Biefeng123!', 'database': 'recosys'}
+        insert_connection = pymysql.connect(host=prop['host'], user=prop['user'], password=prop['password'],
+                                            database=prop['database'])
+        insert_cursor = insert_connection.cursor(cursor=pymysql.cursors.DictCursor)
+
+        limit = 10000
+        count = self.get_data_scale(**kwargs)['count']
+        print("***************************************共计：d%条", count)
+        times = (count + limit - 1) // limit
+
+        init = False
+        insert_sql = ""
+
+        with open('result.sql', 'w', encoding="utf-8") as sqlfile:
+            for i in range(times):
+                kwargs["startIndex"] = i * limit + 1
+                # kwargs['endIndex'] =(i + 1) * limit
+                kwargs['endIndex'] = limit
+                print("第%d条至第%d条", kwargs["startIndex"], (i + 1) * limit)
+
+                records = self.get_data(**kwargs)
+                column_names = []
+                for data in records:
+                    if not init:
+                        insert_sql = "insert into " + kwargs['tableName'] + "("
+                        for column_name in data.keys():
+                            insert_sql = insert_sql + column_name + ","
+                        init = True
+                        insert_sql = insert_sql[:len(insert_sql) - 1] + ") values ("
+                        print(insert_sql)
+                    temp = insert_sql
+                    for (key, value) in data.items():
+
+                        if value is None:
+                            temp = temp + "NULL" + ","
+                        else:
+                            temp = temp + "'" + str(value) + "'" + ","
+                    temp = temp[:len(temp) - 1] + ");\r\n"
+                    # print(temp)
+                    insert_cursor.execute(temp)
+                    insert_connection.commit()
+                    try:
+                        sqlfile.write(temp)
+                    except Exception as e:
+                        print(e)
+
+
 if "__main__" == __name__:
     e = Export()
     prop = PROD
-    prop['sql'] = "select * from catering_task order by order_time"
-    prop['tableName'] = "catering_task"
+    prop[
+        'sql'] = "select user_id ,sku_id item_id,1 as event_id,create_date from catering_task where shop_id = 12001 and length(user_id)<8 order by order_time"
+    prop['tableName'] = "log"
     e.export_to_inserts(**prop)

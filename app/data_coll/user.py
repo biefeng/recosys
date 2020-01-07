@@ -22,6 +22,7 @@ user = Blueprint("user", __name__, url_prefix="/user")
 class User(BaseModel):
     """用户"""
     userName = db.Column("user_name", db.String(128), comment="用户名")
+    userId = db.Column("user_id", db.Integer, comment="用户ID")
 
     def __init__(self, user_name):
         self.userName = user_name
