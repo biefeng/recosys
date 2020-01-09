@@ -1,33 +1,33 @@
-import os
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "prs_project.settings")
-
-import datetime
-from datetime import date, timedelta
-from collections import defaultdict
-from app.data_coll.log import Log
-from app.data_coll.user import User
-from app.data_coll.ratings import Ratings
-from sqlalchemy import distinct
-
-w1 = 100
-w2 = 50
-w3 = 15
+# import os
+#
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "prs_project.settings")
+#
+# import datetime
+# from datetime import date, timedelta
+# from collections import defaultdict
+# from app.data_coll.log import Log
+# from app.data_coll.user import User
+# from app.data_coll.ratings import Ratings
+# from sqlalchemy import distinct
+#
+# w1 = 100
+# w2 = 50
+# w3 = 15
 #
 #
 # def calculate_decay(age_in_days):
 #     return 1 / age_in_days
 #
 #
-def query_log_for_users():
-    """
-    Equivalent to following sql:
-
-    select distinct(user_id)
-    from collector_log log
-    """
-    return Log.query(distinct(User.userId))
-
+# def query_log_for_users():
+#     """
+#     Equivalent to following sql:
+#
+#     select distinct(user_id)
+#     from collector_log log
+#     """
+#     return Log.query(distinct(User.userId))
+#
 #
 # def query_log_data_for_user(userid):
 #     """
@@ -99,7 +99,7 @@ def query_log_for_users():
 #
 #     for content_id, rating in ratings.items():
 #         if rating > 0:
-#             Ratings(
+#             Rating(
 #                 user_id=user_id,
 #                 movie_id=str(content_id),
 #                 rating=rating,
@@ -120,15 +120,15 @@ def query_log_for_users():
 #         userid = user['user_id']
 #         ratings = calculate_implicit_ratings_w_timedecay(userid)
 #         save_ratings(ratings, userid, 'implicit_w')
-
-
-def calculate_ratings():
-    rows = query_log_for_users()
-    # for user in rows:
-    #     userid = user['user_id']
-    #     ratings = calculate_implicit_ratings_for_user(userid)
-    #     save_ratings(ratings, userid, 'implicit')
-    return rows
+#
+#
+# def calculate_ratings():
+#     rows = query_log_for_users()
+#     for user in rows:
+#         userid = user['user_id']
+#         ratings = calculate_implicit_ratings_for_user(userid)
+#         save_ratings(ratings, userid, 'implicit')
+#
 #
 # if __name__ == '__main__':
 #     print("Calculating implicit ratings...")

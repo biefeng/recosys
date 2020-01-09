@@ -9,6 +9,7 @@ from xlwt import Workbook, XFStyle, Font, Borders, Pattern, Style, Alignment
 
 DEV = {'host': '10.128.62.33', 'user': 'root', 'password': 'root', 'database': 'jy_catering'}
 PROD = {'host': '172.16.1.106', 'user': 't11developer', 'password': 'JYwl@2019', 'database': 'jy_catering'}
+LOCAL = {'host': '192.168.186.135', 'user': 'root', 'password': 'Biefeng123!', 'database': 'recosys'}
 
 BASE_WIN_OUTPUT_PATH = 'd:/'
 profiles = {'dev': DEV, 'prod': PROD}
@@ -23,7 +24,10 @@ class Export:
 
         add_header = False
         dict_writer = None
-        with open('result.csv', 'w', newline='') as csvfile:
+        filename = 'result.csv'
+        if 'tableName' in kwargs:
+            filename = kwargs['tableName'] + ".csv"
+        with open(filename, 'w', newline='', encoding="utf-8") as csvfile:
             for i in range(times):
                 kwargs["startIndex"] = i * limit + 1
                 # kwargs['endIndex'] =(i + 1) * limit
@@ -54,7 +58,9 @@ class Export:
 
         init = False
         insert_sql = ""
-
+        filename = "result.sql"
+        if "tableName" in kwargs:
+            filename = kwargs["tableName"] + ".sql"
         with open('result.sql', 'w', encoding="utf-8") as sqlfile:
             for i in range(times):
                 kwargs["startIndex"] = i * limit + 1
@@ -241,8 +247,8 @@ class EventExport(Export):
 
 if "__main__" == __name__:
     e = Export()
-    prop = PROD
-    prop[
-        'sql'] = "select user_id ,sku_id item_id,1 as event_id,create_date from catering_task where shop_id = 12001 and length(user_id)<8 order by order_time"
-    prop['tableName'] = "log"
-    e.export_to_inserts(**prop)
+    prop = LOCAL
+    # prop['sql'] = "select distinct sku_id item_code ,sku_name item_name from catering_task where length(user_id)<8 and shop_id=12001"
+    prop['sql'] = "select user_id,item_id,rating,unix_timestamp(rating_timestamp) from ratings"
+    prop['tableName'] = "ratings"
+    e.export_to_csv(**prop)

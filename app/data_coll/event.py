@@ -12,7 +12,7 @@ event = Blueprint("event", __name__, url_prefix="/event")
 
 class Event(BaseModel):
     eventName = db.Column(db.String(128), nullable=False, comment="事件名称")
-
+    event_name = db.relationship('Log', backref='event', lazy=True)
 
 @event.route("/add", methods=["POST"])
 def save_content():

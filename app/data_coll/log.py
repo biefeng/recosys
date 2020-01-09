@@ -15,7 +15,7 @@ log = Blueprint("log", __name__, url_prefix="/log")
 
 class Log(BaseModel):
     """用户对于物品的操作记录（购买，查看，评价等）"""
-    eventId = db.Column("event_id", db.String(128), nullable=False, comment="事件名称")
+    eventId = db.Column("event_id", db.Integer,db.ForeignKey("event.id"), nullable=False, comment="事件名称")
     itemId = db.Column("item_id", db.Integer, nullable=False, comment="物品ID")
     userId = db.Column("user_id", db.Integer, nullable=False, comment="用户ID")
 
