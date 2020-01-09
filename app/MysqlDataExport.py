@@ -175,23 +175,27 @@ class Export:
         cursor.execute(sql)
         return cursor.fetchone()
 
-    def export(self):
-        args = sys.argv[1:]
-        opts, args = getopt.getopt(args, "hd:s:p:")
-        props = {"profiles": "dev"}
-        for opt, arg in opts:
-            if opt == '-h':
-                print("python export_to_excel.py -d <database> -s <sql> -p <profile> ")
-                sys.exit(1)
-            elif opt == '-d':
-                profiles[props['profiles']]['database'] = props['database']
-            elif opt == '-s':
-                props['sql'] = arg
-            elif opt == '-p':
-                props['profiles'] = arg
-            elif opt == '-o':
-                props['output_path'] = arg
-        profiles[props['profiles']]['sql'] = props['sql']
+	def export(self):
+		args = sys.argv[1:]
+		opts, args = getopt.getopt(args, "hd:s:p:t:")
+		props = {"profiles": "dev"}
+		for opt, arg in opts:
+			if opt == '-h':
+				print("python export_to_excel.py -d <database> -s <sql> -p <profile> ")
+				sys.exit(1)
+			elif opt == '-d':
+				props['database'] = arg
+			elif opt == '-s':
+				props['sql'] = arg
+			elif opt == '-p':
+				props['profiles'] = arg
+			elif opt == '-t':
+				props['table'] = arg
+			elif opt == '-o':
+				props['output_path'] = arg
+		profiles[props['profiles']]['sql'] = props['sql']
+		profiles[props['profiles']]['table'] = props['table']
+		profiles[props['profiles']]['database'] = props['database']
 
         self.export_to_csv(**profiles[props['profiles']])
 

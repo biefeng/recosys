@@ -16,7 +16,7 @@ class BaseModel(db.Model):
     __abstract__ = True  # 定义为基类
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    createDate = db.Column("create_date", db.DateTime, default=datetime.now())
+    createDate = db.Column("create_date", db.DateTime, default=datetime.now)
 
     def __init__(self):
         tablename = self.__tablename__ if self.__tablename__ else self.__class__.__name__.lower()
